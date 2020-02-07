@@ -19,8 +19,8 @@
 // - A single switch.
 // - An array of switches.
 
-#ifndef AVRLIB_DEVICES_SWITCHES_H_
-#define AVRLIB_DEVICES_SWITCHES_H_
+#ifndef AVRLIB_DEVICES_SWITCH_H_
+#define AVRLIB_DEVICES_SWITCH_H_
 
 #include <string.h>
 
@@ -124,4 +124,4 @@ uint8_t DebouncedSwitches<Load, Clock, Data, num_inputs, order>::state_[num_inpu
 
 }  // namespace avrlib
 
-#endif   // AVRLIB_DEVICES_SWITCHES_H_
+#endif   // AVRLIB_DEVICES_SWITCH_H_
