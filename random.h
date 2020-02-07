@@ -52,6 +52,11 @@ class Random {
     return state();
   }
 
+  static int16_t Get(int16_t min, int16_t max) {
+    Update();
+    return min + (static_cast<int32_t>(state()) * (max - min + 1)) / 65536;
+  }
+
  private:
   static uint16_t rng_state_;
 
