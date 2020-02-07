@@ -608,8 +608,8 @@ static inline uint24_t U24Sub(uint24_t a, uint24_t b) {
   bv += b.fractional;
   
   uint32_t difference = av - bv;
-  result.integral = sum >> 8;
-  result.fractional = sum & 0xff;
+  result.integral = difference >> 8;
+  result.fractional = difference & 0xff;
   return result;
 }
 
@@ -642,17 +642,17 @@ static inline int8_t S16ClipS8(int16_t value) {
 }
 
 static inline uint8_t U8Mix(uint8_t a, uint8_t b, uint8_t balance) {
-  return a * (255 - balance) + b * balance >> 8;
+  return (a * (255 - balance) + b * balance) >> 8;
 }
 
 static inline uint8_t U8Mix(uint8_t a, uint8_t b, uint8_t gain_a, uint8_t gain_b) {
-  return a * gain_a + b * gain_b >> 8;
+  return (a * gain_a + b * gain_b) >> 8;
 }
 
 static inline int8_t S8Mix(
     int8_t a, int8_t b,
     uint8_t gain_a, uint8_t gain_b) {
-  return a * gain_a + b * gain_b >> 8;
+  return (a * gain_a + b * gain_b) >> 8;
 }
 
 static inline uint16_t U8MixU16(uint8_t a, uint8_t b, uint8_t balance) {
