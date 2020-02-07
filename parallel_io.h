@@ -28,7 +28,10 @@ namespace avrlib {
 
 enum ParallelPortMode {
   PARALLEL_BYTE,
+  PARALLEL_HEXTUPLE_HIGH,
+  PARALLEL_HEXTUPLE_LOW,
   PARALLEL_NIBBLE_HIGH,
+  PARALLEL_NIBBLE_MIDDLE,
   PARALLEL_NIBBLE_LOW,
   PARALLEL_TRIPLE_HIGHEST,
   PARALLEL_TRIPLE_HIGH,
@@ -48,10 +51,34 @@ struct ShiftMasks {
 };
 
 template<>
+struct ShiftMasks<PARALLEL_HEXTUPLE_HIGH> {
+  enum Masks {
+    mask = 0xfc,
+    shift = 2,
+  };
+};
+
+template<>
+struct ShiftMasks<PARALLEL_HEXTUPLE_LOW> {
+  enum Masks {
+    mask = 0x3f,
+    shift = 0,
+  };
+};
+
+template<>
 struct ShiftMasks<PARALLEL_NIBBLE_HIGH> {
   enum Masks {
     mask = 0xf0,
     shift = 4,
+  };
+};
+
+template<>
+struct ShiftMasks<PARALLEL_NIBBLE_MIDDLE> {
+  enum Masks {
+    mask = 0x3c,
+    shift = 2,
   };
 };
 
