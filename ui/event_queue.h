@@ -58,7 +58,7 @@ class EventQueue {
   
   static void AddEvent(uint8_t control_type, uint8_t id, uint8_t data) {
     Word v;
-    v.bytes[0] = (U8ShiftLeft4(control_type) << 2) | (id & 0x3f);
+    v.bytes[0] = U8ShiftLeft4(control_type) | (id & 0x0f);
     v.bytes[1] = data;
     events_.Overwrite(v.value);
   }
@@ -85,8 +85,8 @@ class EventQueue {
     Event e;
     Word v;
     v.value = events_.ImmediateRead();
-    e.control_type = U8ShiftRight4(v.bytes[0]) >> 2;
-    e.control_id = v.bytes[0] & 0x3f;
+    e.control_type = U8ShiftRight4(v.bytes[0]);
+    e.control_id = v.bytes[0] & 0x0f;
     e.value = v.bytes[1];
     return e;
   }

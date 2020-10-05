@@ -75,9 +75,11 @@ void Itoa(T i, uint8_t width, char* destination) {
       width--;
     }
   }
+#if 0
   if (width) {
     *destination++ = '\0';
   }
+#endif
 }
 
 // A version of Itoa that does not allocate anything on the stack, and use
@@ -108,9 +110,45 @@ void UnsafeItoa(T i, uint8_t width, char* destination) {
       width--;
     }
   }
+#if 0
   if (width) {
     *destination++ = '\0';
   }
+#endif
+}
+
+template<typename T>
+uint8_t UnsafeItoaLen(T i, uint8_t width, char* destination) {
+  static unsigned char digits[TypeInfo<T>::max_size + 1];
+  if (width == 0) {
+    return 0;
+  }
+  uint8_t inital_width = width;
+  if (i == 0) {
+    *destination++ = '0';
+    width--;
+  } else {
+    if (TypeInfo<T>::has_sign && i < 0) {
+      *destination++ = '-';
+      width--;
+      i = -i;
+    }
+    uint8_t digit = 0;
+    while (i > 0) {
+      digits[digit++] = i % 10;
+      i /= 10;
+    }
+    while (digit) {
+      *destination++ = 48 + digits[--digit];
+      width--;
+    }
+  }
+#if 0
+  if (width) {
+    *destination++ = '\0';
+  }
+#endif
+  return inital_width - width;
 }
 
 }  // namespace avrlib
